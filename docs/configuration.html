@@ -10,7 +10,7 @@
 
 		<!-- lib styles -->
 		<link href="../stylesheets/bootstrap-8082a218.css" media="screen" rel="stylesheet" type="text/css" />
-<link href="../stylesheets/vagrant-parallels-5a7cb61b.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="../stylesheets/vagrant-parallels-c1d67e83.css" media="screen" rel="stylesheet" type="text/css" />
 
 		<!-- lib js -->
 		<script src="../javascripts/jquery-15b079d7.js" type="text/javascript"></script>
@@ -99,26 +99,67 @@ Vagrantfile plus a timestamp of when the machine was created.</p>
 
 <p>To change the name, set the <code>name</code> property to the desired value:</p>
 
-<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |v|
-  v.name = &quot;my_vm&quot;
+<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |prl|
+  prl.name = &quot;my_vm&quot;
 end
 </code></pre>
 
+<h2>Create VM as a Linked Clone</h2>
+
+<div class="alert alert-info">
+    <p>
+        <strong>Note:</strong> This feature is available only with Parallels
+        Desktop 11 or higher.
+    </p>
+</div>
+
+<p>When you run <code>vagrant up</code> at the first time, the new virtual machine
+will be created by cloning the box image. By default the Parallels provider 
+creates a regular clone, e.q. the full copy of the box image.</p>
+
+<p>You can configure it to create a linked clone instead:</p>
+
+<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |prl|
+  prl.use_linked_clone = true
+end
+</code></pre>
+
+<p>Difference between linked and regular clones:</p>
+
+<ul>
+<li>Linked clone creation is extremely faster than the regular cloning, because 
+there is no image copying process.</li>
+<li>Linked clone require much less disk space, because its hard disk image is less 
+than 1Mb initially (it is bound to the parent&#39;s snapshot).</li>
+<li>Regular clone is a full image copy, which is independent from the box. 
+The linked clone is bound to the specific snapshot of the box image. It means 
+that box deletion will cause all its linked clones being corrupted. Then please,
+delete your boxes carefully!</li>
+</ul>
+
 <h2>Parallels Tools Auto-Update</h2>
+
+<div class="alert alert-info">
+    <p>
+        <strong>Note:</strong> This feature makes sense to Linux guests only.
+        In Windows and Mac OS guests Parallels Tools will be always updated
+        automatically by the special installation agent running in GUI mode.
+    </p>
+</div>
 
 <p>Parallels Tools is a set of Parallels utilities that ensures a high level of
 integration between the host and the guest operating systems (read more:
 <a href="http://download.parallels.com/desktop/v9/ga/docs/en_US/Parallels%20Desktop%20User&amp;#x27;s%20Guide/32789.htm">Parallels Tools Overview</a>).</p>
 
-<p>By default, the Parallels provider checks the status of Parallels Tools after
+<p>By default the Parallels provider checks the status of Parallels Tools after
 booting the machine. If they are outdated or newer, a warning message will be
 displayed.</p>
 
 <p>You can configure the Parallels provider to update Parallels Tools
 automatically:</p>
 
-<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |v|
-  v.update_guest_tools = true
+<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |prl|
+  prl.update_guest_tools = true
 end
 </code></pre>
 
@@ -128,22 +169,13 @@ version mismatch.</p>
 
 <p>Also, you can completely disable the Parallels Tools version check, if you want:</p>
 
-<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |v|
-  v.check_guest_tools = false
+<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |prl|
+  prl.check_guest_tools = false
 end
 </code></pre>
 
 <p>In this case the both of Parallels Tools status check and an automatic update
 procedure will be skipped as well.</p>
-
-<div class="alert alert-info">
-    <p>
-        <strong>Note:</strong> The feature of Parallels Tools Auto-Update is
-        related to Linux guest OS only.
-        In Windows and Mac OS guests Parallels Tools will be always updated
-        automatically by the special installation agent running in GUI mode.
-    </p>
-</div>
 
 <h2>Power Consumption Mode</h2>
 
@@ -151,14 +183,14 @@ procedure will be skipped as well.</p>
 Life&quot; by default. You can override it to &quot;Better Performance&quot; using this 
 customisation parameter:</p>
 
-<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |v| 
-  v.optimize_power_consumption = false
+<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |prl| 
+  prl.optimize_power_consumption = false
 end
 </code></pre>
 
 <p>P.s. Read more about power consumption modes in Parallels Desktop: <a href="http://kb.parallels.com/en/9607">KB #9607</a></p>
 
-<h2>prlctl Customization</h2>
+<h2>Customization with prlctl</h2>
 
 <p>Parallels Desktop includes the <code>prlctl</code> command-line utility that can be used to
 modify the virtual machines settings.</p>
@@ -166,8 +198,8 @@ modify the virtual machines settings.</p>
 <p>The Parallels provider allows to execute the prlctl command with any of the
 available options just prior to booting the virtual machine:</p>
 
-<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |v|
-  v.customize [&quot;set&quot;, :id, &quot;--device-set&quot;, &quot;cdrom0&quot;, &quot;--image&quot;,
+<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |prl|
+  prl.customize [&quot;set&quot;, :id, &quot;--device-set&quot;, &quot;cdrom0&quot;, &quot;--image&quot;,
                &quot;/path/to/disk.iso&quot;, &quot;--connect&quot;]
 end
 </code></pre>
@@ -181,9 +213,9 @@ executed in the given order.</p>
 
 <p>A simple way is provided to change the memory and CPU settings:</p>
 
-<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |v|
-  v.memory = 1024
-  v.cpus = 2
+<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |prl|
+  prl.memory = 1024
+  prl.cpus = 2
 end
 </code></pre>
 
@@ -206,7 +238,7 @@ for the complete information about the prlctl command and its options.</p>
                                 <p>Vagrant</p>
                             </li>
                         </a>
-                        <a href="http://www.parallels.com/downloads/desktop/">
+                        <a href="http://www.parallels.com/products/desktop/">
                             <li class="pd-logo-monochrome">
                                 <p>Parallels Desktop</p>
                             </li>
