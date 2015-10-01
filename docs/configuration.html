@@ -177,19 +177,6 @@ end
 <p>In this case the both of Parallels Tools status check and an automatic update
 procedure will be skipped as well.</p>
 
-<h2>Power Consumption Mode</h2>
-
-<p>The Parallels provider sets power consumption method as &quot;Longer Battery 
-Life&quot; by default. You can override it to &quot;Better Performance&quot; using this 
-customisation parameter:</p>
-
-<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |prl| 
-  prl.optimize_power_consumption = false
-end
-</code></pre>
-
-<p>P.s. Read more about power consumption modes in Parallels Desktop: <a href="http://kb.parallels.com/en/9607">KB #9607</a></p>
-
 <h2>Customization with prlctl</h2>
 
 <p>Parallels Desktop includes the <code>prlctl</code> command-line utility that can be used to
