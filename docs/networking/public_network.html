@@ -124,13 +124,21 @@ default interface can be specified by adding a <code>bridge</code> clause to the
 definition.</p>
 
 <pre><code class="ruby">Vagrant.configure(&quot;2&quot;) do |config|
-  config.vm.network &quot;public_network&quot;, bridge: &#39;en1&#39;
+  config.vm.network &quot;public_network&quot;, bridge: &quot;en1&quot;
 end
 </code></pre>
 
-<p>The string identifying the desired interface must exactly match the name of an
-available interface. If it can&#39;t be found, Vagrant will ask you to pick
-from a list of available network interfaces.</p>
+<p>The string identifying the desired interface must match either the name or 
+identifier of an available interface. If it can&#39;t be found, Vagrant will ask you 
+to pick from a list of available network interfaces.</p>
+
+<p>It is also possible to specify a list of adapters to bridge against:</p>
+
+<pre><code class="ruby">config.vm.network &quot;public_network&quot;, bridge: [&quot;en1&quot;, &quot;en6&quot;]
+</code></pre>
+
+<p>In this example, the first network adapter that exists and can successfully be
+bridge will be used.</p>
 
                             </div> <!-- /.span8 -->
                         </div> <!-- /.row -->
