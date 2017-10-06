@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title> Getting Started - Vagrant Parallels Provider Documentation</title>
+		<title> Shared Folders - Vagrant Parallels Provider Documentation</title>
 
 		<!-- meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -59,13 +59,13 @@
 
                             <li><a href="usage.html">Usage</a></li>
 
-                            <li class="current"><a href="getting-started.html">Getting Started</a></li>
+                            <li><a href="getting-started.html">Getting Started</a></li>
 
                             <li><a href="share.html">Vagrant Share</a></li>
 
                             <li><a href="boxes/">Boxes</a></li>
 
-														<li><a href="sharedfolders.html">Shared Folders</a></li>
+														<li class="current"><a href="sharedfolders.html">Shared Folders</a></li>
 
                             <li><a href="configuration.html">Configuration</a></li>
 
@@ -83,43 +83,19 @@
                         <!-- start page content -->
                         <div class="row">
                             <div class="span8 offset1">
-                                <h1>Getting Started</h1>
+                                <h1>Shared Folders</h1>
 
-<p>This page describes steps to get your first Parallels Desktop virtual machine
-managed by Vagrant.</p>
+<p>By default, Vagrant will share your project directory (the directory with the Vagrantfile) to /vagrant.</p>
 
-<p>First, download and install <a href="http://www.vagrantup.com/downloads.html">Vagrant for Mac</a>.
-Second, install the &#39;vagrant-parallels&#39; plugin:</p>
+<p>If you need to add other folders, then you can to specify them in a Vagrantfile this way:</p>
 
-<pre><code>$ vagrant plugin install vagrant-parallels
+<pre><code class="ruby">config.vm.synced_folder &quot;~/&quot;, &quot;/media/psf/Home&quot;
+config.vm.synced_folder &quot;/&quot;, &quot;/media/psf/Mac_Root&quot;
 </code></pre>
 
-<p>Once the installation is complete, you can create a virtual machine and manage
-it using Vagrant. The following describes how to create a virtual machine.</p>
+<p>You might want to share folders by passing Parallels Command Line as described in <a href="configuration.html#prlctl">Customization with prlctl</a>, but it won&#39;t work. It is done to avoid conflicts and keep vagrant configs more platform agnostic.</p>
 
-<h2>New project setup</h2>
-
-<p>Create a new directory and init the new Vagrant project in it:</p>
-
-<pre><code>$ mkdir new_vagrant_project
-$ cd new_vagrant_project
-$ vagrant init parallels/ubuntu-14.04
-$ vagrant up --provider=parallels
-</code></pre>
-
-<p>Vagrant will automatically download and import the box and create a new virtual
-machine form it. The virtual machine will then be configured and started.</p>
-
-<p>When the virtual machine is up and running, you can log in to it via SSH:</p>
-
-<pre><code>$ vagrant ssh
-</code></pre>
-
-<p>You can use any of the available <a href="http://docs.vagrantup.com/v2/cli/index.html">vagrant commands</a>
-to control your virtual machine.</p>
-
-<p>For example, you can run <code>vagrant halt</code> to gracefully shut it down, or
-<code>vagrant destroy</code> to remove it completely.</p>
+<p>You can read more about syncing host and guest folders in the <a href="https://www.vagrantup.com/docs/synced-folders/basic_usage.html">Vagrant Documentation</a>.</p>
 
                             </div> <!-- /.span8 -->
                         </div> <!-- /.row -->
