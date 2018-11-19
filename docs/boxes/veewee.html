@@ -3,13 +3,13 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title> Using Veewee - Vagrant Parallels Provider Documentation</title>
+		<title> Build Base Boxes with Veewee - Vagrant Parallels Provider Documentation</title>
 
 		<!-- meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<!-- lib styles -->
-		<link href="../../stylesheets/bootstrap-8082a218.css" rel="stylesheet" type="text/css" /><link href="../../stylesheets/vagrant-parallels-7c26550b.css" rel="stylesheet" type="text/css" />
+		<link href="../../stylesheets/bootstrap-8082a218.css" rel="stylesheet" type="text/css" /><link href="../../stylesheets/vagrant-parallels-f60e90fa.css" rel="stylesheet" type="text/css" />
 
 		<!-- lib js -->
 		<script src="../../javascripts/jquery-25d6eed8.js" type="text/javascript"></script>
@@ -31,7 +31,7 @@
 			<nav class="docs">
 				<div class="container">
 					<!-- vagrant logo -->
-					<a class="vagrant-docs-logo" href="../">Vagrant Parallels Documentation</a>
+					<a href="../" class="vagrant-docs-logo">Vagrant Parallels Documentation</a>
 					<!-- nav -->
 					<ul class="pull-right">
 						<li><a href="https://docs.vagrantup.com">Vagrant Docs</a></li>
@@ -64,8 +64,8 @@
 
 								<ul class="sub unstyled">
 									<li><a href="base.html">Creating a Base Box</a></li>
-									<li><a href="packer.html">Using Packer</a></li>
-									<li class="current"><a href="veewee.html">Using Veewee</a></li>
+									<li><a href="packer.html">Build with Packer</a></li>
+									<li class="current"><a href="veewee.html">Build with Veewee</a></li>
 								</ul>
 
 								<li><a href="../sharedfolders.html">Shared Folders</a></li>
@@ -84,7 +84,7 @@
 						<!-- start page content -->
 						<div class="row">
 							<div class="span8 offset1">
-								<h1>Using Veewee</h1>
+								<h1>Build Base Boxes with Veewee</h1>
 
 <div class="alert alert-warn">
     <p>
@@ -103,7 +103,7 @@ instructions.</p>
 
 <p>Veewee requires the &#39;prlsdkapi&#39; Python module from the Parallels Virtualization
 SDK to interact with Parallels Desktop and virtual machines. To use Veewee with
-the Parallels provider you need to download and install this SDK package: 
+the Parallels provider you need to download and install this SDK package:
 <a href="http://www.parallels.com/download/pvsdk/">The Parallels Virtualization SDK for Mac</a></p>
 
 <p>You can also install it with <a href="brew.sh">Homebrew</a> package manager:</p>
@@ -126,7 +126,7 @@ provider, you need to customize the definition manually.</p>
 <p>Navigate to the definition folder and create a <code>parallels.sh</code> script with the
 following content:</p>
 
-<pre><code># vi ./definition/my_centos/parallels.sh
+<pre><code>$ vi ./definition/my_centos/parallels.sh
 
 # Install the Parallels Tools
 PARALLELS_TOOLS_ISO=prl-tools-lin.iso
@@ -139,7 +139,7 @@ umount /media/cdrom
 <p>Open the <code>definition.rb</code> file for editing, find the &#39;:postinstall_files&#39; array
 and add the &quot;parallels.sh&quot; string to it. It should now look like this:</p>
 
-<pre><code> # vi ./definition/my_centos/definition.rb
+<pre><code>$ vi ./definition/my_centos/definition.rb
 
 ...
   :postinstall_files =&gt; [
