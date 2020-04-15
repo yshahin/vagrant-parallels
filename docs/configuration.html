@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<!-- lib styles -->
-		<link href="../stylesheets/bootstrap-8082a218.css" rel="stylesheet" type="text/css" /><link href="../stylesheets/vagrant-parallels-f60e90fa.css" rel="stylesheet" type="text/css" />
+		<link href="../stylesheets/bootstrap-fb7d1fd2.css" rel="stylesheet" type="text/css" /><link href="../stylesheets/vagrant-parallels-7278c15d.css" rel="stylesheet" type="text/css" />
 
 		<!-- lib js -->
 		<script src="../javascripts/jquery-25d6eed8.js" type="text/javascript"></script>
@@ -92,12 +92,10 @@ GUI. By default, Vagrant sets it to the name of the folder containing the
 Vagrantfile plus a timestamp of when the machine was created.</p>
 
 <p>To change the name, set the <code>name</code> property to the desired value:</p>
-
-<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |prl|
-  prl.name = &quot;my_vm&quot;
-end
-</code></pre>
-
+<div class="highlight"><pre class="highlight ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provider</span> <span class="s2">"parallels"</span> <span class="k">do</span> <span class="o">|</span><span class="n">prl</span><span class="o">|</span>
+  <span class="n">prl</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="s2">"my_vm"</span>
+<span class="k">end</span>
+</code></pre></div>
 <div id="linked_clone"></div>
 
 <h2>Full Clone vs Linked Clone</h2>
@@ -121,19 +119,17 @@ warn you about such cases but you still need be careful when you delete boxes!</
 
 <p>If you want the provider to create a full clone instead, you should disable the linked
 clone feature explicitly in Vagrantfile:</p>
-
-<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |prl|
-  prl.linked_clone = false
-end
-</code></pre>
-
+<div class="highlight"><pre class="highlight ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provider</span> <span class="s2">"parallels"</span> <span class="k">do</span> <span class="o">|</span><span class="n">prl</span><span class="o">|</span>
+  <span class="n">prl</span><span class="p">.</span><span class="nf">linked_clone</span> <span class="o">=</span> <span class="kp">false</span>
+<span class="k">end</span>
+</code></pre></div>
 <p><em>Note:</em> Changes of this setting will take an effect only for newly created machines.</p>
 
 <h2>Parallels Tools Auto-Update</h2>
 
 <p>Parallels Tools is a set of Parallels utilities that ensures a high level of
 integration between the host and the guest operating systems (read more:
-<a href="http://download.parallels.com/desktop/v14/docs/en_US/Parallels%20Desktop%20User's%20Guide/32789.htm">Parallels Tools Overview</a>).</p>
+<a href="https://download.parallels.com/desktop/v16/docs/en_US/Parallels%20Desktop%20User's%20Guide/32789.htm">Parallels Tools Overview</a>).</p>
 
 <p>By default the Parallels provider checks the status of Parallels Tools after
 booting the machine. If they are outdated or newer, a warning message will be
@@ -141,23 +137,19 @@ displayed.</p>
 
 <p>You can configure the Parallels provider to update Parallels Tools
 automatically:</p>
-
-<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |prl|
-  prl.update_guest_tools = true
-end
-</code></pre>
-
+<div class="highlight"><pre class="highlight ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provider</span> <span class="s2">"parallels"</span> <span class="k">do</span> <span class="o">|</span><span class="n">prl</span><span class="o">|</span>
+  <span class="n">prl</span><span class="p">.</span><span class="nf">update_guest_tools</span> <span class="o">=</span> <span class="kp">true</span>
+<span class="k">end</span>
+</code></pre></div>
 <p>This option is disabled by default because of Parallels Tools installation
 takes some time (2-6 minutes) and includes a VM restart. Although, it runs
 only when there is a version mismatch.</p>
 
 <p>Also, you can completely disable the Parallels Tools version check, if you want:</p>
-
-<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |prl|
-  prl.check_guest_tools = false
-end
-</code></pre>
-
+<div class="highlight"><pre class="highlight ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provider</span> <span class="s2">"parallels"</span> <span class="k">do</span> <span class="o">|</span><span class="n">prl</span><span class="o">|</span>
+  <span class="n">prl</span><span class="p">.</span><span class="nf">check_guest_tools</span> <span class="o">=</span> <span class="kp">false</span>
+<span class="k">end</span>
+</code></pre></div>
 <p>In this case both of Parallels Tools status check and an automatic update
 procedure will be skipped as well.</p>
 
@@ -170,13 +162,11 @@ modify the virtual machines settings.</p>
 
 <p>The Parallels provider allows to execute the prlctl command with any of the
 available options just prior to booting the virtual machine:</p>
-
-<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |prl|
-  prl.customize [&quot;set&quot;, :id, &quot;--device-set&quot;, &quot;cdrom0&quot;, &quot;--image&quot;,
-                 &quot;/path/to/disk.iso&quot;, &quot;--connect&quot;]
-end
-</code></pre>
-
+<div class="highlight"><pre class="highlight ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provider</span> <span class="s2">"parallels"</span> <span class="k">do</span> <span class="o">|</span><span class="n">prl</span><span class="o">|</span>
+  <span class="n">prl</span><span class="p">.</span><span class="nf">customize</span> <span class="p">[</span><span class="s2">"set"</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="s2">"--device-set"</span><span class="p">,</span> <span class="s2">"cdrom0"</span><span class="p">,</span> <span class="s2">"--image"</span><span class="p">,</span>
+                 <span class="s2">"/path/to/disk.iso"</span><span class="p">,</span> <span class="s2">"--connect"</span><span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div>
 <p>In the example above, the virtual machine is modified to have a specified ISO
 image mounted on its virtual media device (cdrom). The <code>:id</code> parameter is
 replaced with the actual virtual machine ID.</p>
@@ -185,14 +175,12 @@ replaced with the actual virtual machine ID.</p>
 executed in the given order.</p>
 
 <p>A simple way is provided to change the memory and CPU settings:</p>
-
-<pre><code class="ruby">config.vm.provider &quot;parallels&quot; do |prl|
-  prl.memory = 1024
-  prl.cpus = 2
-end
-</code></pre>
-
-<p>You can read the <a href="http://download.parallels.com/desktop/v14/docs/en_US/Parallels%20Desktop%20Pro%20Edition%20Command-Line%20Reference.pdf">Command-Line Reference</a>
+<div class="highlight"><pre class="highlight ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provider</span> <span class="s2">"parallels"</span> <span class="k">do</span> <span class="o">|</span><span class="n">prl</span><span class="o">|</span>
+  <span class="n">prl</span><span class="p">.</span><span class="nf">memory</span> <span class="o">=</span> <span class="mi">1024</span>
+  <span class="n">prl</span><span class="p">.</span><span class="nf">cpus</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>You can read the <a href="https://download.parallels.com/desktop/v16/docs/en_US/Parallels%20Desktop%20Pro%20Edition%20Command-Line%20Reference.pdf">Command-Line Reference</a>
 for the complete information about the prlctl command and its options.</p>
 
 							</div> <!-- /.span8 -->
@@ -222,7 +210,7 @@ for the complete information about the prlctl command and its options.</p>
 
 					<div class="row">
 						<h6 class="legal">
-							&copy; 2019 Parallels International GmbH.
+							&copy; 2020 Parallels International GmbH.
 						</h6>
 					</div> <!-- row -->
 				</div> <!-- container -->

@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<!-- lib styles -->
-		<link href="../../stylesheets/bootstrap-8082a218.css" rel="stylesheet" type="text/css" /><link href="../../stylesheets/vagrant-parallels-f60e90fa.css" rel="stylesheet" type="text/css" />
+		<link href="../../stylesheets/bootstrap-fb7d1fd2.css" rel="stylesheet" type="text/css" /><link href="../../stylesheets/vagrant-parallels-7278c15d.css" rel="stylesheet" type="text/css" />
 
 		<!-- lib js -->
 		<script src="../../javascripts/jquery-25d6eed8.js" type="text/javascript"></script>
@@ -109,8 +109,7 @@ box file format</a>.</p>
 
 <p>A Parallels base box is a compressed archive of the necessary contents of
 a Parallels &quot;pvm&quot; file. Here is an example of what is contained in such a box:</p>
-
-<pre><code>$ tree
+<div class="highlight"><pre class="highlight plaintext"><code>$ tree
 .
 ├── Vagrantfile
 ├── box.pvm
@@ -120,8 +119,7 @@ a Parallels &quot;pvm&quot; file. Here is an example of what is contained in suc
 │   └── harddisk.hdd
 │       └── ...
 └── metadata.json
-</code></pre>
-
+</code></pre></div>
 <p><code>config.pvs</code> and <code>&lt;diskname&gt;.hdd</code> are strictly required for a Parallels virtual
 machine.</p>
 
@@ -138,8 +136,7 @@ installed, as a bare minimum:</p>
 with default Vagrant settings, the SSH user must be set to accept the <a href="https://github.com/mitchellh/vagrant/blob/master/keys/vagrant.pub">insecure
 keypair</a>
 that ships with Vagrant.</p></li>
-<li><p><a href="http://download.parallels.com/desktop/v14/docs/en_US/
-Parallels%20Desktop%20User's%20Guide/32791.htm">Parallels Tools</a> so that things such as shared
+<li><p><a href="https://download.parallels.com/desktop/v16/docs/en_US/Parallels%20Desktop%20User's%20Guide/32791.htm">Parallels Tools</a> so that things such as shared
 folders can function. There are many other benefits to installing the tools,
 such as networking configuration and device mapping.</p></li>
 </ul>
@@ -148,20 +145,16 @@ such as networking configuration and device mapping.</p></li>
 
 <p>Prior to packaging up a box, you should shrink the hard drives as much as
 possible. This can be done with <code>prl_disk_tool</code>:</p>
-
-<pre><code>$ prl_disk_tool compact --hdd /path/to/harddisk.hdd
-</code></pre>
-
+<div class="highlight"><pre class="highlight plaintext"><code>$ prl_disk_tool compact --hdd /path/to/harddisk.hdd
+</code></pre></div>
 <h2>Packaging</h2>
 
 <p>Remove any extraneous files from the &quot;pvm&quot; folder and package it. Be sure to
 compress the tar with gzip (done below in a single command) since Parallels
 hard disks are not compressed by default.</p>
-
-<pre><code>$ cd /path/to/my/box.pvm/..
+<div class="highlight"><pre class="highlight plaintext"><code>$ cd /path/to/my/box.pvm/..
 $ tar cvzf custom.box ./box.pvm ./Vagrantfile ./metadata.json
-</code></pre>
-
+</code></pre></div>
 							</div> <!-- /.span8 -->
 						</div> <!-- /.row -->
 					</div> <!-- /.page-contents -->
@@ -189,7 +182,7 @@ $ tar cvzf custom.box ./box.pvm ./Vagrantfile ./metadata.json
 
 					<div class="row">
 						<h6 class="legal">
-							&copy; 2019 Parallels International GmbH.
+							&copy; 2020 Parallels International GmbH.
 						</h6>
 					</div> <!-- row -->
 				</div> <!-- container -->
