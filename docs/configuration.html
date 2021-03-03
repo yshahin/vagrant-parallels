@@ -174,7 +174,25 @@ replaced with the actual virtual machine ID.</p>
 <p>Multiple <code>customize</code> directives can be used simultaneously. They will be
 executed in the given order.</p>
 
-<p>A simple way is provided to change the memory and CPU settings:</p>
+<p>It is also possible to set the customization not only on every booting, but on other
+events as well. The following example shows how to enable nested virtualization and
+do it only once, after the VM is cloned from the box:</p>
+<div class="highlight"><pre class="highlight ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provider</span> <span class="s2">"parallels"</span> <span class="k">do</span> <span class="o">|</span><span class="n">prl</span><span class="o">|</span>
+  <span class="n">prl</span><span class="p">.</span><span class="nf">customize</span> <span class="s2">"post-import"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"set"</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="s2">"--nested-virt"</span><span class="p">,</span> <span class="s2">"on"</span><span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>As you can see, the event could be configured af a first argument, before the list of arguments.
+Here are the supported events:</p>
+
+<ul>
+<li><code>post-import</code> - executed only once, just after the VM is cloned from the base box</li>
+<li><code>pre-boot</code> - executed prior to VM booting <em>(default event, used if none is specified explicitly)</em></li>
+<li><code>post-boot</code> - executed after VM booting, before the communicator (<em>ssh</em> or <em>winrm</em>) confirms the connection</li>
+<li><code>post-comm</code> - executed after VM booting, after the communicator (<em>ssh</em> or <em>winrm</em>) confirms the connection</li>
+</ul>
+
+<p>Some settings have also &quot;shortcut&quot; aliases. For example, here is the simple way
+to change the number of CPUs and memory size (in MiB):</p>
 <div class="highlight"><pre class="highlight ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provider</span> <span class="s2">"parallels"</span> <span class="k">do</span> <span class="o">|</span><span class="n">prl</span><span class="o">|</span>
   <span class="n">prl</span><span class="p">.</span><span class="nf">memory</span> <span class="o">=</span> <span class="mi">1024</span>
   <span class="n">prl</span><span class="p">.</span><span class="nf">cpus</span> <span class="o">=</span> <span class="mi">2</span>
@@ -210,7 +228,7 @@ for the complete information about the prlctl command and its options.</p>
 
 					<div class="row">
 						<h6 class="legal">
-							&copy; 2020 Parallels International GmbH.
+							&copy; 2021 Parallels International GmbH.
 						</h6>
 					</div> <!-- row -->
 				</div> <!-- container -->
